@@ -9,7 +9,6 @@ public class ShowScore : MonoBehaviour {
 
     private Rank rank;
 
-    // Use this for initialization
     void Awake () {
         rank = SaveLoad.Load();
 
