@@ -17,12 +17,13 @@ public class CheckCollider : MonoBehaviour {
         get { return direction;  }
     }
 
-    [SerializeField]
+    /// <summary> Verifica se o objeto pode se mover </summary>
     private bool canMove = true;
     public bool CanMove {
         get { return canMove; }
     }
 
+    /// <summary> Verifica se há algo para empurra </summary>
     private bool isPushing;
     public bool IsPushing {
         get { return isPushing; }
@@ -47,9 +48,10 @@ public class CheckCollider : MonoBehaviour {
     }
 
     void OnTriggerExit2D(Collider2D colisor) {
-        if (!updateTrigger) 
+        if (!updateTrigger) { 
             canMove = true;
-        isPushing = false;
+            isPushing = false;
+        }
     }
 
     
