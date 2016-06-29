@@ -5,93 +5,74 @@ using System.Collections.Generic;
 /// </summary>
 public class SoundManager : MonoBehaviour {
 
-    [Header("BGM")]
+    [Header("Sons")]
     [SerializeField]
     private AudioSource BGM;
-    [SerializeField]
-    private List<AudioClip> musics;
-    public enum Music {
-        Null = -1,
-        MainMenu = 0,   //01 - Menu - Ross Bugden - Sad
-        Intro = 1,      
-        House = 2,
-        Game = 3,
-        Credits = 4,
-    }
-
-    [Header("BGS")]
+    
     [SerializeField]
     private AudioSource BGS;
-    [SerializeField]
-    private List<AudioClip> backgroundSounds;
-    public enum BackgroundSound {
-        Null = -1
-    }
 
-    [Header("SE")]
+
     [SerializeField]
     private AudioSource SE;
-    public enum SoundEffect {
-        Null = -1,
-        Button = 0,
-        Speech = 1,
-        Success = 2,
-        Fail = 3
-    }
-    [SerializeField]
-    private List<AudioClip> soundEffects;
+
+    public static SoundManager instance;
 
     void Awake() {
+        instance = this;
         DontDestroyOnLoad(gameObject);
 
         if (FindObjectsOfType<SoundManager>().Length > 1)
             Destroy(gameObject);
-
-        UpdateVolume();
-
     }
 
-    public void PlayBGM(Music music) {
-        BGM.clip = musics[(int)music];
-        BGM.Play();
+    public void PlayBGM(AudioClip audio) {
+        if (audio != null) {
+            if (BGM.clip != audio) { 
+                BGM.clip = audio;
+                BGM.Play();
+            }
+        }
+        else
+            StopBGM();
     }
 
     public void StopBGM() {
         BGM.Stop();
     }
 
-    public void PlayBGS(BackgroundSound bgs) {
-        BGS.clip = backgroundSounds[(int)bgs];
-        BGS.Play();
+    public void PlayBGS(AudioClip audio) {
+        if (audio != null) {
+            if (BGS.clip != audio) {
+                BGS.clip = audio;
+                BGS.Play();
+            }
+        } else
+            StopBGS();
     }
 
     public void StopBGS() {
         BGS.Stop();
     }
 
-    public void PlaySE(SoundEffect se) {
-        SE.PlayOneShot(soundEffects[(int)se]);
+    public void PlaySE(AudioClip audio) {
+        SE.PlayOneShot(audio);
     }
 
     public void StopSE() {
         SE.Stop();
     }
 
-    public void PlayButton() {
-        PlaySE(SoundEffect.Button);
+    public void TurnOn() {
+        BGM.volume = 1;
+        BGS.volume = 1;
+        SE.volume = 1;
     }
 
-    public void UpdateVolume() {
-        if (PlayerPrefs.HasKey("BGM")) 
-            BGM.volume = PlayerPrefs.GetFloat("BGM");
-        
-
-        if (PlayerPrefs.HasKey("BGS"))
-            BGS.volume = PlayerPrefs.GetFloat("BGS");
-
-
-        if (PlayerPrefs.HasKey("SE"))
-            SE.volume = PlayerPrefs.GetFloat("SE");
-
+    public void TurnOff() {
+        BGM.volume = 0;
+        BGS.volume = 0;
+        SE.volume = 0;
     }
+
 }

@@ -11,6 +11,12 @@ public class LevelController : MonoBehaviour {
     /// <summary> Qual o Level atual </summary>
     public int levelAtual = 1;
 
+    /// <summary> Música de Fundo </summary>
+    public AudioClip BGM;
+
+    /// <summary> Som de Fundo </summary>
+    public AudioClip BGS;
+
     /// <summary> Qual a próxima fase </summary>
     public string proximaScene;
     
@@ -37,6 +43,9 @@ public class LevelController : MonoBehaviour {
 
     void Start() {
         fade.FadeIn();
+
+        SoundManager.instance.PlayBGM(BGM);
+        SoundManager.instance.PlayBGS(BGS);
     }
 
     void Update() {

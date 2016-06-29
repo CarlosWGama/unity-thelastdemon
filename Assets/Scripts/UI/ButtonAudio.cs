@@ -30,5 +30,8 @@ public class ButtonAudio : MonoBehaviour {
 	public void ToggleAudio() {
         PlayerInfo.AudioIsOn = isOn = !isOn;
         icon.sprite = (isOn ? iconOn : iconOff);
+
+        if (isOn) SoundManager.instance.TurnOn();
+        else SoundManager.instance.TurnOff();
     }
 }

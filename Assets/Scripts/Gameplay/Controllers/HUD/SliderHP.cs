@@ -4,6 +4,8 @@ using System.Collections;
 
 public abstract class SliderHP : MonoBehaviour {
 
+    [SerializeField]
+    private AudioClip hitSound;
     private int totalHP;
     protected int currentHP;
     private Slider slider;
@@ -22,6 +24,7 @@ public abstract class SliderHP : MonoBehaviour {
 
     public virtual void Hit() {
         currentHP--;
+        SoundManager.instance.PlaySE(hitSound);
         StartCoroutine(NormalizeColor());
     }
 
