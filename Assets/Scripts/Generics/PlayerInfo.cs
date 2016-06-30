@@ -49,7 +49,7 @@ public class PlayerInfo {
         Lives--;
 
         if (Lives <= 0) 
-            SceneManager.LoadScene("SalvarScore");
+            SceneManager.LoadScene("GameOver");
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

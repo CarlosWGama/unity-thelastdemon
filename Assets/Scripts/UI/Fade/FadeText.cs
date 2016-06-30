@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
-/// <summary>
-/// Script usado na animação do Demonio surgindo na intro do inicio
-/// </summary>
-public class Demon : MonoBehaviour {
-
-    /// <summary> Imagem do Demonio </summary>
-    private Image demon;
-    /// <summary> Imagem das chamas </summary>
-    private Image flame;
+[AddComponentMenu("UI/Effects/Fade Text")]
+[RequireComponent(typeof(Text))]
+public class FadeText : MonoBehaviour {
 
     /// <summary> Tempo para o demonio surgir </summary>
     [SerializeField]
     private float delay;
+
+    /// <summary> Imagem do componente </summary>
+    private Text component;
 
     /// <summary> Duração do efeito surgindo </summary>
     [SerializeField]
@@ -40,36 +38,29 @@ public class Demon : MonoBehaviour {
     /// <summary> Controlador do efeito de duração </summary>
     private float timerDuracao;
 
-    void Awake () {
-        demon = GetComponent<Image>();
-        flame = transform.GetChild(0).GetComponent<Image>();
-	}
-	
-	
-	void Update () {
-        
+    void Awake() {
+        component = GetComponent<Text>();
+    }
+
+    void Update() {
+
         if (delay >= 0) {
             delay -= TimeManager.DeltaTimeRunning;
         } else {
-            
+
             var timeFade = (startFadeOut ? fadeOut : fadeIn);
-            
+
             if (timerFade <= timeFade) {    //Fade
                 timerFade += TimeManager.DeltaTimeRunning;
                 var percentage = (timerFade * opacidade / timeFade);
                 percentage = Mathf.Clamp(percentage, 0f, 1f);
                 percentage = (startFadeOut ? opacidade - percentage : percentage);
-
-                //Demon
-                var colorImage = demon.color;
+                //Componente
+                var colorImage = component.color;
                 colorImage.a = percentage;
-                demon.color = colorImage;
-
-                //Fogo
-                colorImage = flame.color;
-                colorImage.a = percentage;
-                flame.color = colorImage;
-            } else {
+                component.color = colorImage;
+            }
+            else {
 
                 //Mante a Scene enquanto de acordo com o seu tempo de duração
                 if (!startFadeOut) {
@@ -79,12 +70,9 @@ public class Demon : MonoBehaviour {
                         startFadeOut = true;
                         timerFade = 0f;         //Realizar o FadeOut
                     }
-                }
-                else
-                    Destroy(gameObject);
+                } else
+                    enabled = false;
             }
         }
     }
-
-
 }
