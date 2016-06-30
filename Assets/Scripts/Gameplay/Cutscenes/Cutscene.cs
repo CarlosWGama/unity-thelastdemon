@@ -4,7 +4,8 @@ using System.Collections;
 public class Cutscene : ScriptableObject {
 
     public string Texto;
-    public Sprite Avatar1;
-    public Sprite Avatar2;
-    public bool FocoAvatarEsquerda = true; //Qual dos rostos está falando
+    public Sprite Imagem;
+    public int Duracao;
+    public int FadeIn;
+    public int FadeOut;
 }

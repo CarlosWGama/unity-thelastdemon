@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
@@ -7,9 +6,9 @@ using System.Collections;
 public class Event : MonoBehaviour {
     
     [SerializeField]
-    private List<Cutscene> cutscenes = new List<Cutscene>();
+    private List<Dialogo> dialogos = new List<Dialogo>();
 
-    private Cutscene currentCutscene;
+    private Dialogo currentDialogo;
 
     /// <summary> Linha Superior do WideScreen </summary>
     private Image lineTop;
@@ -64,10 +63,10 @@ public class Event : MonoBehaviour {
         if (Input.anyKeyDown && cooldownAction <= 0) {
             cooldownAction = 1f;
 
-            currentCutscene = GetNextCutscene();
+            currentDialogo = GetNextDialogo();
             
             //Encerra a cutscenermação
-            if (currentCutscene == null) { 
+            if (currentDialogo == null) { 
                 Stop();
                 return;
             }
@@ -78,7 +77,7 @@ public class Event : MonoBehaviour {
     }
 
     IEnumerator TypeText() { 
-        foreach (char letter in currentCutscene.Texto.ToCharArray()) {
+        foreach (char letter in currentDialogo.Texto.ToCharArray()) {
             text.text += letter;
             yield return new WaitForSeconds(0.025f);
         }
@@ -96,26 +95,26 @@ public class Event : MonoBehaviour {
         StartCoroutine(coroutineTypeText);
 
         // Rosto Esquerdo
-        if (currentCutscene.Avatar1 != null) {
+        if (currentDialogo.Avatar1 != null) {
             faceLeft.enabled = true;
-            faceLeft.sprite = currentCutscene.Avatar1;
-            faceLeft.color = (currentCutscene.FocoAvatarEsquerda ? Color.white : new Color(1f, 1f, 1f, 0.2f));
+            faceLeft.sprite = currentDialogo.Avatar1;
+            faceLeft.color = (currentDialogo.FocoAvatarEsquerda ? Color.white : new Color(1f, 1f, 1f, 0.2f));
         } else 
             faceLeft.enabled = false;
             
         // Rosto Direito
-        if (currentCutscene.Avatar2 != null) {
+        if (currentDialogo.Avatar2 != null) {
             faceRight.enabled = true;
-            faceRight.sprite = currentCutscene.Avatar2;
-            faceRight.color = (!currentCutscene.FocoAvatarEsquerda ? Color.white : new Color(1f, 1f, 1f, 0.2f));
+            faceRight.sprite = currentDialogo.Avatar2;
+            faceRight.color = (!currentDialogo.FocoAvatarEsquerda ? Color.white : new Color(1f, 1f, 1f, 0.2f));
         } else 
             faceRight.enabled = false;
     }
 
     /// <summary> Inicia a cutscenermação </summary>
     public void Play() {
-        currentCutscene = GetNextCutscene();
-        if (currentCutscene != null) {
+        currentDialogo = GetNextDialogo();
+        if (currentDialogo != null) {
             TimeManager.SemiPaused = true;
             isPlaying = true;
             EnableWideScreen();
@@ -142,21 +141,21 @@ public class Event : MonoBehaviour {
         text.enabled = false;
         faceLeft.enabled = false;
         faceRight.enabled = false;
-        cutscenes = new List<Cutscene>(); //Limpa a lista
+        dialogos = new List<Dialogo>(); //Limpa a lista
     }
 
     /// <summary> Método que busca a próxima cutscenermação </summary>
     /// <returns>Caso haja próxima cutscenermação, retorna a cutscenermação, do contrário retorna Null</returns>
-    private Cutscene GetNextCutscene() {
-        if (currentCutscene == null)   //Busca a primeira cutscene
-            return cutscenes[0];
+    private Dialogo GetNextDialogo() {
+        if (currentDialogo == null)   //Busca a primeira cutscene
+            return dialogos[0];
 
-        var index = cutscenes.IndexOf(currentCutscene);
+        var index = dialogos.IndexOf(currentDialogo);
         index += 1;                 //Busca o id da próxima cutscene
 
-        if (index >= cutscenes.Count)  //Não tem mais cutscene
+        if (index >= dialogos.Count)  //Não tem mais cutscene
             return null;
-        return cutscenes[index];
+        return dialogos[index];
     }
         
     /// <summary> Habilita as linhas WideScreen </summary>
