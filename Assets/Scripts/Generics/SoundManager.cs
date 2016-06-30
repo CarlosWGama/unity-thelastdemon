@@ -19,11 +19,12 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager instance;
 
     void Awake() {
-        instance = this;
         DontDestroyOnLoad(gameObject);
 
         if (FindObjectsOfType<SoundManager>().Length > 1)
             Destroy(gameObject);
+        else
+            instance = this;
     }
 
     public void PlayBGM(AudioClip audio) {
