@@ -12,8 +12,6 @@ public class SliderHPPlayer : SliderHP {
         PlayerInfo.HP = currentHP;
         if (PlayerInfo.HP <= 0)
             PlayerInfo.UseLife();
-            
-
     }
 
 }

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class LifePlayer : MonoBehaviour {
 
-	void Awake () {
+	void Start () {
         GetComponent<Text>().text = "Vidas x" + PlayerInfo.Lives;
 	}
 }
