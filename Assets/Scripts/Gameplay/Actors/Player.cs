@@ -21,8 +21,6 @@ public class Player : TileMove {
     /// <summary> Controla as animação </summary>
     private Animator animator;
 
-    private bool tryMove;
-
 	protected override void Awake () {
         base.Awake();
         animator = GetComponent<Animator>();
@@ -37,7 +35,7 @@ public class Player : TileMove {
 	void LateUpdate () {
         if (!TimeManager.Paused) { 
             if (!isMoving) {
-                if (Input.anyKeyDown && Tile.CanMove) 
+                if ((Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")) && Tile.CanMove) 
                     Turn();   
             } else {
                 Moving();
@@ -64,7 +62,6 @@ public class Player : TileMove {
             directionCollider.Direction = Direction = Tile.Direction.Up; //Cima
         else if (Input.GetAxisRaw("Vertical") < 0)
             directionCollider.Direction = Direction = Tile.Direction.Down; //Baixo
-        tryMove = true;
 
         StartCoroutine(Action());
     }
