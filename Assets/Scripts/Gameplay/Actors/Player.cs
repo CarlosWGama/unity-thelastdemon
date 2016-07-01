@@ -20,7 +20,8 @@ public class Player : TileMove {
 
     /// <summary> Controla as animação </summary>
     private Animator animator;
-    
+
+    private bool tryMove;
 
 	protected override void Awake () {
         base.Awake();
@@ -36,8 +37,8 @@ public class Player : TileMove {
 	void LateUpdate () {
         if (!TimeManager.Paused) { 
             if (!isMoving) {
-                if (Input.anyKeyDown && Tile.CanMove)
-                    Action();
+                if (Input.anyKeyDown && Tile.CanMove) 
+                    Turn();   
             } else {
                 Moving();
             }
@@ -53,8 +54,7 @@ public class Player : TileMove {
 
     }
 
-    void Action() {
-        
+    void Turn() {
         //Turn
         if (Input.GetAxisRaw("Horizontal") > 0)
             directionCollider.Direction = Direction = Tile.Direction.Right; //Direita
@@ -64,19 +64,23 @@ public class Player : TileMove {
             directionCollider.Direction = Direction = Tile.Direction.Up; //Cima
         else if (Input.GetAxisRaw("Vertical") < 0)
             directionCollider.Direction = Direction = Tile.Direction.Down; //Baixo
-        
-        //Se atualizou a direção, checa no próximo frame
-        if (!updateDirection) { 
-            if (directionCollider.CanMove) {
+        tryMove = true;
 
-                if (sliderSt.HasStamina) //Usa Stamina
-                    sliderSt.Use(); 
-                else                    //Causa dano
-                    sliderHP.Hit();
-                Move();
-            } else if (directionCollider.IsPushing)
-                Push();
-        }
+        StartCoroutine(Action());
+    }
+
+    IEnumerator Action() {
+        yield return new WaitForFixedUpdate();
+        //Se atualizou a direção, checa no próximo frame
+        if (directionCollider.CanMove) {
+
+            if (sliderSt.HasStamina) //Usa Stamina
+                sliderSt.Use(); 
+            else                    //Causa dano
+                sliderHP.Hit();
+            Move();
+        } else if (directionCollider.IsPushing)
+            Push();
     }
 
     void Push() {

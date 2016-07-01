@@ -33,9 +33,12 @@ public class CheckCollider : MonoBehaviour {
     public IVela Vela { get { return vela; } }
 
     private bool updateTrigger;
-
+    private bool updateBox;
     void FixedUpdate() {
-        if (updateTrigger) updateTrigger = false;
+        if (updateTrigger) {
+            updateTrigger = false;
+            updateBox = false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D colisor) {
@@ -44,14 +47,15 @@ public class CheckCollider : MonoBehaviour {
         if (colisor.gameObject.tag.Equals("Vela")) {
             vela = colisor.gameObject.GetComponent<IVela>();
             isPushing = true;
+            updateBox = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D colisor) {
-        if (!updateTrigger) { 
+        if (!updateTrigger) 
             canMove = true;
+        if (!updateBox)
             isPushing = false;
-        }
     }
 
     
