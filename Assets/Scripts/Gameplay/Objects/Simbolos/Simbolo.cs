@@ -29,7 +29,6 @@ public class Simbolo : MonoBehaviour, ISimbolo {
         timeController += TimeManager.DeltaTime;
         
         var percentage = ((timeController * 100) / duration) / 100;
-        Debug.Log(timeController + " - " + percentage);        
         percentage = Mathf.Clamp(percentage, 0, 1f);
         
 

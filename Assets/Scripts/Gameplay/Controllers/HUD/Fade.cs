@@ -24,10 +24,12 @@ public class Fade : MonoBehaviour {
             color.a -= 0.01f;
             image.color = color;
             yield return new WaitForFixedUpdate();
-        }        
+        }
+        gameObject.SetActive(false);
     }
 
     public void FadeOut() {
+        gameObject.SetActive(true);
         TimeManager.Paused = true;
         StartCoroutine(ExecFadeOut());
     }
