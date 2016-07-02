@@ -35,7 +35,7 @@ public class PlayerInfo {
     /// <summary>
     /// HP atual do personagem
     /// </summary>
-    public static int HP = 5;
+    public static int HP = 10;
 
     public static void ResetaDados() {
         TimePlaying = 0;
@@ -55,6 +55,6 @@ public class PlayerInfo {
     }
 
     public static void RestoreHP() {
-        HP = 5;
+        HP = 10;
     }
 }

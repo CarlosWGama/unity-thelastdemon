@@ -49,7 +49,7 @@ public class Player : TileMove {
 	void LateUpdate () {
         if (!TimeManager.Paused) { 
             if (!isMoving) {
-                if ((Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")) && Tile.CanMove) 
+                if ((Input.GetButton("Horizontal") || Input.GetButton("Vertical")) && Tile.CanMove) 
                     Action();   
             } else {
                 Moving();
