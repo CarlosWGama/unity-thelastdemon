@@ -21,6 +21,15 @@ public class Player : TileMove {
     /// <summary> Controla as animação </summary>
     private Animator animator;
 
+    [Header("Sons")]
+    [SerializeField]
+    ///<summary>SE de andar</summary>
+    private AudioClip somAndando;
+
+    [SerializeField]
+    ///<summary>SE de empurrar</summary>
+    private AudioClip somEmpurrando;
+
 
 #if UNITY_EDITOR
     private int passos;
@@ -74,12 +83,16 @@ public class Player : TileMove {
             else                    //Causa dano
                 sliderHP.Hit();
             Move();
+            SoundManager.instance.PlaySE(somAndando);
 #if UNITY_EDITOR
             passos++;
             Debug.Log(passos);
 #endif
-            if (CanPushing())           
+            if (CanPushing()) {
                 Push();
+                SoundManager.instance.PlaySE(somEmpurrando);
+            }
+                
         }
     }
     /*
