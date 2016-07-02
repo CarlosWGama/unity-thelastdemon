@@ -41,7 +41,7 @@ public class Player : TileMove {
         if (!TimeManager.Paused) { 
             if (!isMoving) {
                 if ((Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")) && Tile.CanMove) 
-                    Turn();   
+                    Action();   
             } else {
                 Moving();
             }
@@ -57,20 +57,32 @@ public class Player : TileMove {
 
     }
 
-    void Turn() {
+    void Action() {
         //Turn
         if (Input.GetAxisRaw("Horizontal") > 0)
-            directionCollider.Direction = Direction = Tile.Direction.Right; //Direita
+            Direction = Tile.Direction.Right; //Direita
         else if (Input.GetAxisRaw("Horizontal") < 0)
-            directionCollider.Direction = Direction = Tile.Direction.Left; //Esquerda
+            Direction = Tile.Direction.Left; //Esquerda
         else if (Input.GetAxisRaw("Vertical") > 0)
-            directionCollider.Direction = Direction = Tile.Direction.Up; //Cima
+            Direction = Tile.Direction.Up; //Cima
         else if (Input.GetAxisRaw("Vertical") < 0)
-            directionCollider.Direction = Direction = Tile.Direction.Down; //Baixo
+            Direction = Tile.Direction.Down; //Baixo
 
-        StartCoroutine(Action());
+        if (CanMove() || CanPushing()) {
+            if (sliderSt.HasStamina) //Usa Stamina
+                sliderSt.Use();
+            else                    //Causa dano
+                sliderHP.Hit();
+            Move();
+#if UNITY_EDITOR
+            passos++;
+            Debug.Log(passos);
+#endif
+            if (CanPushing())           
+                Push();
+        }
     }
-
+    /*
     IEnumerator Action() {
         yield return new WaitForFixedUpdate();
         //Se atualizou a direção, checa no próximo frame
@@ -89,9 +101,9 @@ public class Player : TileMove {
         else if (directionCollider.IsPushing)
             Push();
     }
-
+    */
     void Push() {
         animator.SetTrigger("Pushing");
-        directionCollider.Vela.Push(direction);
+        GetVela().Push(direction);
     }
 }

@@ -12,8 +12,8 @@ public class Vela : TileMove, IVela {
     void Update() {
         if (testMove) {
             testMove = false;
-            //Debug.Log(directionCollider.Direction + " - " + directionCollider.CanMove);
-            if (directionCollider.CanMove)
+            
+            if (CanMove())
                 Move();
             
         } else if (isMoving) 
@@ -25,7 +25,7 @@ public class Vela : TileMove, IVela {
     /// </summary>
     /// <param name="direction">Direção a qual a vela é empurrada</param>
     public void Push(Tile.Direction direction) {
-        this.direction = directionCollider.Direction = direction;
+        this.direction = direction;
         testMove = true;
     }
 }
