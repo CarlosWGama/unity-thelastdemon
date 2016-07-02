@@ -21,7 +21,12 @@ public class Player : TileMove {
     /// <summary> Controla as animação </summary>
     private Animator animator;
 
-	protected override void Awake () {
+
+#if UNITY_EDITOR
+    private int passos;
+#endif
+
+    protected override void Awake () {
         base.Awake();
         animator = GetComponent<Animator>();
 	}
@@ -76,7 +81,12 @@ public class Player : TileMove {
             else                    //Causa dano
                 sliderHP.Hit();
             Move();
-        } else if (directionCollider.IsPushing)
+#if UNITY_EDITOR
+            passos++;
+            Debug.Log(passos);
+#endif
+        }
+        else if (directionCollider.IsPushing)
             Push();
     }
 

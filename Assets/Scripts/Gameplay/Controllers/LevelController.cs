@@ -52,13 +52,16 @@ public class LevelController : MonoBehaviour {
         PlayerInfo.TimePlaying += TimeManager.DeltaTime;
     }
 
-    public void EnterInSimbolo() {
-        simbolos--;
+    void LateUpdate() {
         if (simbolos == 0) {
             PlayerInfo.CurrentLevel = levelAtual;
             fade.FadeOut();
             Invoke("LoadNextScene", 2f);
         }
+    }
+
+    public void EnterInSimbolo() {
+        simbolos--;
     }
 
     public void LeaveSimbolo() {
