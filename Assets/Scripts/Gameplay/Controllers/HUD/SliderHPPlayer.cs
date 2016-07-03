@@ -2,7 +2,7 @@
 public class SliderHPPlayer : SliderHP {
 
 	void Start () {
-        SetTotalHP(5);
+        SetTotalHP(10);
         currentHP = PlayerInfo.HP;
 
     }
