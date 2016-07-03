@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class ButtonSacrificio : MonoBehaviour { 
 
     private Text texto;
+    [SerializeField]
+    private AudioClip morteSE;
 
 	void Awake () {
         texto = GetComponentInChildren<Text>();
@@ -21,6 +23,7 @@ public class ButtonSacrificio : MonoBehaviour {
     }
 
     public void Sacrificar() {
+        SoundManager.instance.PlaySE(morteSE);
         PlayerInfo.UseLife();
     }
 }

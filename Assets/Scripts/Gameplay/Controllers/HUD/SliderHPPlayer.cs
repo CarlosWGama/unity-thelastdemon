@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class SliderHPPlayer : SliderHP {
 
     private Text texto;
+    public AudioClip morteSE;
 
 	void Start () {
         SetTotalHP(10);
@@ -19,8 +20,11 @@ public class SliderHPPlayer : SliderHP {
     public override void Hit() {
         base.Hit();
         PlayerInfo.HP = currentHP;
-        if (PlayerInfo.HP <= 0)
+        if (PlayerInfo.HP <= 0) {
+            SoundManager.instance.PlaySE(morteSE);
             PlayerInfo.UseLife();
+        }
+            
     }
 
 }
