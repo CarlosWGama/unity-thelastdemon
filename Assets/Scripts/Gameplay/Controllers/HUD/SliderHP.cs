@@ -8,13 +8,16 @@ public abstract class SliderHP : MonoBehaviour {
     private AudioClip hitSound;
     private int totalHP;
     protected int currentHP;
-    private Slider slider;
+    protected Slider slider;
     [SerializeField]
     protected Image face;
 
+    void Awake() {
+        slider = GetComponent<Slider>();
+    }
+
 	protected void SetTotalHP (int hp) {
         currentHP = totalHP = hp;
-        slider = GetComponent<Slider>();
         slider.value = slider.maxValue = currentHP;
 	}
 	

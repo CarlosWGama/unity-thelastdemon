@@ -7,6 +7,7 @@ public class SliderSt : MonoBehaviour {
     private int totalSt;
     private int currentSt;
     private Slider slider;
+    private Text texto;
     private bool hasStamina = false;
     public bool HasStamina { get { return hasStamina; } }
 
@@ -15,10 +16,12 @@ public class SliderSt : MonoBehaviour {
         hasStamina = true;
         slider = GetComponent<Slider>();
         slider.value = slider.maxValue = currentSt;
+        texto = GetComponentInChildren<Text>();
     }
 	
 	void Update () {
         slider.value = currentSt;
+        texto.text = "St " + slider.value + "/" + slider.maxValue;
     }
 
     public void Use() {
