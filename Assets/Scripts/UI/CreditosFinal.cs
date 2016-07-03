@@ -37,16 +37,6 @@ public class CreditosFinal : MonoBehaviour {
     /// </summary>
     public float velocidade;
 
-    [Header("Sons")]
-    [SerializeField]
-    ///<summary>SE de andar</summary>
-    private AudioClip somAndando;
-
-    [SerializeField]
-    ///<summary>SE de empurrar</summary>
-    private AudioClip somEmpurrand;
-
-
     void Start () {
         time = BGM.length;
         SoundManager.instance.PlayBGM(BGM);
