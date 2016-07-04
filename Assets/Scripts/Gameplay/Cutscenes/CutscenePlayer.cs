@@ -104,7 +104,7 @@ public class CutscenePlayer : MonoBehaviour {
 
             //Realiza o Fade In/Out
             var timeFade = (sceneIsFinished ? currentCutscene.FadeOut : currentCutscene.FadeIn);
-            if (timerFade <= timeFade) {    //Fade
+            if (timerFade < timeFade) {    //Fade
                 timerFade += TimeManager.DeltaTimeRunning;
                 var percentage = (timerFade * 100 / timeFade) / 100;
                 percentage = Mathf.Clamp(percentage, 0f, 1f);
