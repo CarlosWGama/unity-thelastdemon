@@ -80,8 +80,10 @@ public class Player : TileMove {
         if (CanMove() || CanPushing()) {
             if (sliderSt.HasStamina) //Usa Stamina
                 sliderSt.Use();
+#if !UNITY_EDITOR
             else                    //Causa dano
                 sliderHP.Hit();
+#endif
             Move();
             SoundManager.instance.PlaySE(somAndando);
 #if UNITY_EDITOR
