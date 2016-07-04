@@ -11,8 +11,12 @@ public class DialogoController : MonoBehaviour {
     [SerializeField]
     private string proximaScene;
 
+    [SerializeField]
+    private bool reseteHP = false;
+
 	void Start () {
-        PlayerInfo.RestoreHP();
+        if (reseteHP)
+            PlayerInfo.RestoreHP();
         eventPlayer = FindObjectOfType<Event>();
 	}
 
