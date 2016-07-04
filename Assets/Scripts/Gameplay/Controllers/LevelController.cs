@@ -33,6 +33,11 @@ public class LevelController : MonoBehaviour {
     private int bossHP;
     public int BossHP { get { return bossHP; } }
 
+    /// <summary> Nome do Boss </summary>
+    [SerializeField]
+    private string bossName;
+    public string BossName { get { return bossName; } }
+
     private Fade fade;
 
     void Awake() {
