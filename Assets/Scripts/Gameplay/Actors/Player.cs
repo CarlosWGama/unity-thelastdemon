@@ -118,7 +118,6 @@ public class Player : TileMove {
     }
     */
     void Push() {
-        animator.SetTrigger("Pushing");
         GetVela().Push(direction);
     }
 }
