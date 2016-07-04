@@ -11,6 +11,8 @@ public class Event : MonoBehaviour {
     private Dialogo currentDialogo;
 
     /// <summary> Linha Superior do WideScreen </summary>
+    private Image BG;
+    /// <summary> Linha Superior do WideScreen </summary>
     private Image lineTop;
     /// <summary> Linha Inferior do WideScreen </summary>
     private Image lineBottom;
@@ -35,6 +37,7 @@ public class Event : MonoBehaviour {
 
     void Awake() {
         try {
+            BG = transform.GetChild(0).GetComponent<Image>();
             lineTop = transform.GetChild(1).GetComponent<Image>();
             lineBottom = transform.GetChild(2).GetComponent<Image>();
             faceLeft = transform.GetChild(3).GetComponent<Image>();
@@ -93,6 +96,13 @@ public class Event : MonoBehaviour {
         //Atualiza texto tipografado
         coroutineTypeText = TypeText();
         StartCoroutine(coroutineTypeText);
+
+        if (currentDialogo.background != null) {
+            BG.color = Color.white;
+            BG.sprite = currentDialogo.background;
+        } else {
+            BG.color = new Color(1, 1, 1, 0);
+        }
 
         // Rosto Esquerdo
         if (currentDialogo.Avatar1 != null) {
