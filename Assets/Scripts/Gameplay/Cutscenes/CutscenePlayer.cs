@@ -64,9 +64,9 @@ public class CutscenePlayer : MonoBehaviour {
         try {
             BG = transform.GetChild(0).GetComponent<Image>();
             image = transform.GetChild(1).GetComponent<Image>();
-            skipCutScene = transform.GetChild(2).GetComponent<Text>();
-            lineTop = transform.GetChild(3).GetComponent<Image>();
-            lineBottom = transform.GetChild(4).GetComponent<Image>();
+            lineTop = transform.GetChild(2).GetComponent<Image>();
+            lineBottom = transform.GetChild(3).GetComponent<Image>();
+            skipCutScene = transform.GetChild(4).GetComponent<Text>();
             text = transform.GetChild(5).GetComponent<Text>();
         } catch (UnityException ex) {
             Debug.Log(ex.Message);
