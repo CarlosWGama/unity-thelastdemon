@@ -80,7 +80,7 @@ public class CutscenePlayer : MonoBehaviour {
     void Update () {
         if (isPlaying) {
             ///// Pula CutScene //////
-            if (canSkip && Input.GetKeyDown(KeyCode.Return)) {
+            if (canSkip && Input.anyKeyDown) {
                 if (!trySkip) { 
                     trySkip = true;
                     skipCutScene.enabled = true;
