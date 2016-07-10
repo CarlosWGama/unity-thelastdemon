@@ -39,7 +39,7 @@ public class CreditosFinal : MonoBehaviour {
 
     void Start () {
         time = BGM.length;
-        SoundManager.instance.PlayBGM(BGM);
+        SoundManager.instance.PlayBGM(BGM, false);
 	}
 	
 	void Update () {
