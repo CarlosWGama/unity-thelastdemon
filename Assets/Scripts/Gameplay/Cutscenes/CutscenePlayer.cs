@@ -99,7 +99,7 @@ public class CutscenePlayer : MonoBehaviour {
             //Troca o texto e imagem
             //image.sprite = (currentCutscene.Imagem != null ? currentCutscene.Imagem : defaultSprite);
             image.sprite = currentCutscene.Imagem;
-            text.text = currentCutscene.Texto;
+            text.text = currentCutscene.Text;
             
 
             //Realiza o Fade In/Out

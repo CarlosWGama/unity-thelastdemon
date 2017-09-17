@@ -3,7 +3,14 @@ using System.Collections;
 
 public class Dialogo : ScriptableObject {
 
-    public string Texto;
+    public string Text {
+        get {
+            if (textID == null || textID.Equals(""))
+                return "";
+            return Language.GetText("Dialog", textID);
+        }
+    }
+    public string textID;
     public Sprite Avatar1;
     public Sprite Avatar2;
     public Sprite background;

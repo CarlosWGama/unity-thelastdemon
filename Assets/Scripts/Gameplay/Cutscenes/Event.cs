@@ -79,8 +79,8 @@ public class Event : MonoBehaviour {
         }    
     }
 
-    IEnumerator TypeText() { 
-        foreach (char letter in currentDialogo.Texto.ToCharArray()) {
+    IEnumerator TypeText() {
+        foreach (char letter in currentDialogo.Text.ToCharArray()) {
             text.text += letter;
             yield return new WaitForSeconds(0.025f);
         }

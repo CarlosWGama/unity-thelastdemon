@@ -1,0 +1,8 @@
+<root>
+  <!-- MENU -->
+  <text id="bt-story-mode" text="Modo História"/>
+  <text id="bt-free-mode" text="Modo Livre"/>
+  <text id="bt-rank" text="Rank"/>
+  <text id="bt-exit" text="Sair"/>
+
+</root>
