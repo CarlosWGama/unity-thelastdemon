@@ -11,6 +11,9 @@ public class LevelController : MonoBehaviour {
     /// <summary> Qual o Level atual </summary>
     public int levelAtual = 1;
 
+    /// <summary> Estágio a qual pertence esse cenário </summary>
+    public int stageAtual = 1;
+
     /// <summary> Música de Fundo </summary>
     public AudioClip BGM;
 
@@ -18,12 +21,15 @@ public class LevelController : MonoBehaviour {
     public AudioClip BGS;
 
     /// <summary> Qual a próxima fase </summary>
-    public string proximaScene;
+    public string proximaScene = "Level_0_0";
     
     [Header("Player")]
     [SerializeField]
     private int playerStamina;
     public int PlayerStamina { get { return playerStamina; } }
+
+    [SerializeField]
+    private bool resetStatusOnFinish = false;
 
     [Header("Boss")]
     [SerializeField]
@@ -49,18 +55,22 @@ public class LevelController : MonoBehaviour {
     void Start() {
         fade.FadeIn();
 
+        //Audio
         SoundManager.instance.PlayBGM(BGM);
         SoundManager.instance.PlayBGS(BGS);
-    }
 
-    void Update() {
-        PlayerInfo.TimePlaying += TimeManager.DeltaTime;
-    }
+        //Salva o progresso
+        GameplayInfo.MaxLevelUnlock = levelAtual;
+        GameplayInfo.LastStageUnlock = stageAtual;
+        GameplayInfo.SaveProgress();
 
+    }
+    
     void LateUpdate() {
         if (simbolos == 0) {
-            PlayerInfo.CurrentLevel = levelAtual;
             fade.FadeOut();
+
+            if (resetStatusOnFinish) PlayerInfo.ResetStatus();
             Invoke("LoadNextScene", 2f);
         }
     }

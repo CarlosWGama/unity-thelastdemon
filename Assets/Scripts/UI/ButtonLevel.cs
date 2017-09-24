@@ -7,6 +7,13 @@ public class ButtonLevel: MonoBehaviour {
         Language.UpdateLanguage();
     }
 
+    public void ButtonStoryMode() {
+        if (SaveLoad.HasSave(1))
+            GameplayInfo.OpenLastStage();
+        else
+            ChangeLevel("Inicial");
+    }
+
     public void ChangeLevel(string level) {
         SceneManager.LoadScene(level);
     }	

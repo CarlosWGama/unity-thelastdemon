@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using System;
 
 /// <summary>
 /// Armazena as informações do Jogador entre as diferentes fases
 /// </summary>
+[Serializable]
 public class PlayerInfo {
 
     /// <summary>
@@ -13,34 +14,17 @@ public class PlayerInfo {
     public static bool AudioIsOn = true;
 
     /// <summary>
-    /// Guarda informação do tempo gasto pelo jogador
-    /// </summary>
-    public static float TimePlaying = 0;
-
-    /// <summary>
-    /// Exibe o tempo jogador, formatado
-    /// </summary>
-    public static string TimePlayingFormatted { get { return Mathf.Floor(TimePlaying / 60) + ":" + (TimePlaying % 60).ToString("00"); } }
-
-    /// <summary>
-    /// Guarda informação do level completado pelo jogador
-    /// </summary>
-    public static int CurrentLevel = 0;
-
-    /// <summary>
     /// Total de vidas do jogador
     /// </summary>
-    public static int Lives = 5;
+    public static int Lives = 3;
 
     /// <summary>
     /// HP atual do personagem
     /// </summary>
     public static int HP = 10;
 
-    public static void ResetaDados() {
-        TimePlaying = 0;
-        CurrentLevel = 0;
-        Lives = 5;
+    public static void ResetStatus() {
+        Lives = 3;
         RestoreHP();
     }
 
@@ -49,7 +33,7 @@ public class PlayerInfo {
         Lives--;
 
         if (Lives <= 0) 
-            SceneManager.LoadScene("GameOver");
+            GameplayInfo.OpenLastStage();
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

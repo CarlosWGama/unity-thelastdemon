@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 [RequireComponent(typeof(Text))]
 public class TextLang : MonoBehaviour {
@@ -17,6 +18,10 @@ public class TextLang : MonoBehaviour {
 
     void Awake() {
         textUI = GetComponent<Text>();
+    }
+
+    void Start()
+    {
         UpdateText();
     }
 
@@ -25,7 +30,15 @@ public class TextLang : MonoBehaviour {
     }
 
     public void UpdateText() {
-        textUI.text = Language.GetText(type, ID);
+        try { 
+            textUI.text = Language.GetText(type, ID);
+        } catch (Exception e) {
+#if UNITY_EDITOR
+            Debug.LogError(e.Message);
+            Debug.LogError("Type " + type);
+            Debug.LogError("ID " + ID);
+#endif
+        }
     }
 
 }
