@@ -25,10 +25,6 @@ public class LevelController : MonoBehaviour {
     
     [Header("Player")]
     [SerializeField]
-    private int playerStamina;
-    public int PlayerStamina { get { return playerStamina; } }
-
-    [SerializeField]
     private bool resetStatusOnFinish = false;
 
     [Header("Boss")]
