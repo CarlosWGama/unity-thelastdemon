@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : TileMove {
 
     private SliderHPPlayer sliderHP;
-    private SliderSt sliderSt;
+    private SliderStPlayer sliderSt;
 
     private Tile.Direction Direction {
         set { 
@@ -42,7 +42,7 @@ public class Player : TileMove {
 
     void Start() {
         sliderHP = FindObjectOfType<SliderHPPlayer>();
-        sliderSt = FindObjectOfType<SliderSt>();
+        sliderSt = FindObjectOfType<SliderStPlayer>();
     }
 	
 
@@ -78,21 +78,17 @@ public class Player : TileMove {
             Direction = Tile.Direction.Down; //Baixo
 
         if (CanMove() || CanPushing()) {
-            if (sliderSt.HasStamina) //Usa Stamina
-                sliderSt.Use();
-#if !UNITY_EDITOR
-            else                    //Causa dano
-                sliderHP.Hit();
-#endif
-            Move();
-            SoundManager.instance.PlaySE(somAndando);
+            if (sliderSt.Use(1)) { //Usa Stamina
+                Move();
+                SoundManager.instance.PlaySE(somAndando);
 #if UNITY_EDITOR
-            passos++;
-            Debug.Log(passos);
+                passos++;
+                Debug.Log(passos);
 #endif
-            if (CanPushing()) {
-                Push();
-                SoundManager.instance.PlaySE(somEmpurrando);
+                if (CanPushing()) {
+                    Push();
+                    SoundManager.instance.PlaySE(somEmpurrando);
+                }
             }
                 
         }

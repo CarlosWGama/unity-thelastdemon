@@ -2,34 +2,43 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class SliderSt : MonoBehaviour {
+public abstract class SliderSt : MonoBehaviour {
 
-    private int totalSt;
-    private int currentSt;
-    private Slider slider;
-    private Text texto;
-    private bool hasStamina = false;
-    public bool HasStamina { get { return hasStamina; } }
+    protected int totalSt;
+    protected float currentSt;
+    public float CurrentSt { get { return currentSt; } }
+    protected Slider slider;
+    protected Text texto;
+    [SerializeField]
+    protected float speedRecover = 2f;
 
-    void Start() {
-        currentSt = totalSt = FindObjectOfType<LevelController>().PlayerStamina;
-        hasStamina = true;
+    protected virtual void Start() {
+        //currentSt = totalSt = FindObjectOfType<LevelController>().PlayerStamina;
         slider = GetComponent<Slider>();
         slider.value = slider.maxValue = currentSt;
         texto = GetComponentInChildren<Text>();
     }
 	
-	void Update () {
+	protected virtual void Update () {
         slider.value = currentSt;
         texto.text = "St " + slider.value + "/" + slider.maxValue;
+
+        currentSt += TimeManager.DeltaTime * speedRecover;
+        if (currentSt > totalSt) currentSt = totalSt;
     }
 
-    public void Use() {
-        currentSt--;
-        if (currentSt <= 0) {
-            currentSt = 0;
-            hasStamina = false;
+    /// <summary>
+    /// Usa Stamina
+    /// </summary>
+    /// <param name="stamina">Quantidade de Stamina usada</param>
+    /// <returns>Retorna true caso tenha estamina suficiente</returns>
+    public bool Use(float stamina) {
+        if (currentSt >= stamina) { 
+            currentSt -= stamina;
+            if (currentSt <= 0) 
+                currentSt = 0;
+            return true;
         }
-            
+        return false;
     }
 }

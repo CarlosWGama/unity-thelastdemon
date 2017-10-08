@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Boss : SliderHP {
+public class SliderHPBoss : SliderHP {
 
     private LevelController lvlct;
 
