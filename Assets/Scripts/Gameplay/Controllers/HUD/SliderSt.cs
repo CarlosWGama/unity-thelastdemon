@@ -21,7 +21,7 @@ public abstract class SliderSt : MonoBehaviour {
 	
 	protected virtual void Update () {
         slider.value = currentSt;
-        texto.text = "St " + slider.value + "/" + slider.maxValue;
+        texto.text = "St " + (int) slider.value + "/" + slider.maxValue;
 
         currentSt += TimeManager.DeltaTime * speedRecover;
         if (currentSt > totalSt) currentSt = totalSt;

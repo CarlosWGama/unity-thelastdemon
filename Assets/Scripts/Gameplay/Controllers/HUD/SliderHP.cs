@@ -11,9 +11,11 @@ public abstract class SliderHP : MonoBehaviour {
     protected Slider slider;
     [SerializeField]
     protected Image face;
+    protected Text texto;
 
     void Awake() {
         slider = GetComponent<Slider>();
+        texto = GetComponentInChildren<Text>();
     }
 
 	protected void SetTotalHP (int hp) {
@@ -23,7 +25,8 @@ public abstract class SliderHP : MonoBehaviour {
 	
 	protected virtual void Update () {
         slider.value = currentHP;
-	}
+        texto.text = "HP " + slider.value + "/" + slider.maxValue;
+    }
 
     public virtual void Hit() {
         currentHP--;
