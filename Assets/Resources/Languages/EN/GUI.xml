@@ -5,4 +5,9 @@
   <text id="bt-rank" text="Rank"/>
   <text id="bt-exit" text="Exit"/>
 
+  <!-- PAUSE MENU -->
+  <text id="pause" text="Pause"/>
+  <text id="bt-resume" text="Resume"/>
+  <text id="bt-restart" text="Restart"/>
+  <text id="bt-main-menu" text="Main Menu"/>
 </root>

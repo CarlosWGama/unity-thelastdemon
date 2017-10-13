@@ -1,0 +1,13 @@
+<root>
+  <!-- PLAYER -->
+  <text id="player-stamina" text="I'm exhausted, I need to rest."/>
+
+  <text id="player-rand2.1" text="[user]? My name's Lily"/>
+  <text id="player-rand2.2" text="As I imagined, he's getting weaker."/>
+
+  <!-- BOSS1 -->
+  <text id="boss1-hit" text="Good job, [user], but you need more then this to win"/>
+  <text id="boss1-rand1.1" text="This will be your end, you don't escape..."/>
+
+  <text id="boss1-rand2.1" text="Hehehe... I'm not talking with you, am I, [user]?"/>
+</root>

@@ -81,38 +81,17 @@ public class Player : TileMove {
             if (sliderSt.Use(1)) { //Usa Stamina
                 Move();
                 SoundManager.instance.PlaySE(somAndando);
-#if UNITY_EDITOR
-                passos++;
-                Debug.Log(passos);
-#endif
+
                 if (CanPushing()) {
                     Push();
                     SoundManager.instance.PlaySE(somEmpurrando);
                 }
-            }
-                
+            } else {
+                DialogInBattle.Instance.Player("player-stamina");
+            }     
         }
     }
-    /*
-    IEnumerator Action() {
-        yield return new WaitForFixedUpdate();
-        //Se atualizou a direção, checa no próximo frame
-        if (directionCollider.CanMove) {
-
-            if (sliderSt.HasStamina) //Usa Stamina
-                sliderSt.Use(); 
-            else                    //Causa dano
-                sliderHP.Hit();
-            Move();
-#if UNITY_EDITOR
-            passos++;
-            Debug.Log(passos);
-#endif
-        }
-        else if (directionCollider.IsPushing)
-            Push();
-    }
-    */
+   
     void Push() {
         GetVela().Push(direction);
     }

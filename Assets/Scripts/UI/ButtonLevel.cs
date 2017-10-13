@@ -8,9 +8,9 @@ public class ButtonLevel: MonoBehaviour {
     }
 
     public void ButtonStoryMode() {
-        if (SaveLoad.HasSave(1))
-            GameplayInfo.OpenLastStage();
-        else
+        //if (SaveLoad.HasSave(1))
+        //    GameplayInfo.OpenLastStage();
+        //else
             ChangeLevel("Inicial");
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using System.Collections.Generic;
 
 public class LevelController : MonoBehaviour {
 
@@ -27,13 +27,34 @@ public class LevelController : MonoBehaviour {
     [SerializeField]
     private bool resetStatusOnFinish = false;
 
+    /// <summary> Falas do Player durante a fase </summary>
+    public List<string> RandomTextsPlayer = new List<string>();
+    /// <summary> Pega o texto Atual do Player </summary>
+    private int currentTextPlayer = 0;
+    /// <summary> Atraso para começar as falas </summary>
+    public float DelayPlayer = 2f;
+    /// <summary> Tempo para a próxima fala </summary>
+    public float RepeatPlayer = 8f;
+
     [Header("Boss")]
     [SerializeField]
     private Sprite bossSprite;
     public Sprite BossSprite { get { return bossSprite; } }
-    
+
     private int bossHP;
     public int BossHP { get { return bossHP; } }
+
+    private bool firstHit = true;
+    /// <summary> Fala do boss ao receber o primeiro dano </summary>
+    public string TextOnHit;
+    /// <summary> Falas do Boss durante a fase </summary>
+    public List<string> RandomTextsBoss = new List<string>();
+    /// <summary> Pega o texto Atual do Boss </summary>
+    private int currentTextBoss = 0;
+    /// <summary> Atraso para começar as falas </summary>
+    public float DelayBoss = 3f;
+    /// <summary> Tempo para a próxima fala </summary>
+    public float RepeatBoss = 8f;
 
     /// <summary> Nome do Boss </summary>
     [SerializeField]
@@ -60,8 +81,12 @@ public class LevelController : MonoBehaviour {
         GameplayInfo.LastStageUnlock = stageAtual;
         GameplayInfo.SaveProgress();
 
+        //Dialogos
+        if (RandomTextsPlayer.Count > 0) InvokeRepeating("TextPlayer", DelayPlayer, RepeatPlayer);
+        if (RandomTextsBoss.Count > 0) InvokeRepeating("TextBoss", DelayBoss, RepeatBoss);
+
     }
-    
+
     void LateUpdate() {
         if (simbolos == 0) {
             fade.FadeOut();
@@ -73,6 +98,10 @@ public class LevelController : MonoBehaviour {
 
     public void EnterInSimbolo() {
         simbolos--;
+        if (firstHit && !TextOnHit.Equals("")) {
+            firstHit = false;
+            DialogInBattle.Instance.Boss(TextOnHit);
+        }
     }
 
     public void LeaveSimbolo() {
@@ -81,6 +110,30 @@ public class LevelController : MonoBehaviour {
 
     public void LoadNextScene() {
         SceneManager.LoadScene(proximaScene);
+    }
+
+    /// <summary>
+    /// Invoca os textos dos boss de tempo em tempo
+    /// </summary>
+    private void TextPlayer() {
+        if (!TimeManager.Paused) { 
+            DialogInBattle.Instance.Player(RandomTextsPlayer[currentTextPlayer]);
+            currentTextPlayer++;
+            if (currentTextPlayer == RandomTextsPlayer.Count)
+                CancelInvoke("TextPlayer");
+        }
+    }
+
+    /// <summary>
+    /// Invoca os textos dos boss de tempo em tempo
+    /// </summary>
+    private void TextBoss() {
+        if (!TimeManager.Paused) {
+            DialogInBattle.Instance.Boss(RandomTextsBoss[currentTextBoss]);
+            currentTextBoss++;
+            if (currentTextBoss == RandomTextsBoss.Count)
+                CancelInvoke("TextBoss");
+        }
     }
 }
 
